@@ -1,0 +1,28 @@
+{
+  "status": true,
+  "message": "Data notifikasi berhasil diambil",
+  "unread_count": 3,
+  "data": [
+    {
+      "id": 1,
+      "pesan": "Surat masuk baru: Undangan Rakor Pengawasan Satwa Liar",
+      "waktu": "10 menit yang lalu",
+      "is_read": false,
+      "tautan": "/surat-masuk"
+    },
+    {
+      "id": 2,
+      "pesan": "Disposisi baru dari Kepala Seksi memerlukan tindak lanjut segera",
+      "waktu": "45 menit yang lalu",
+      "is_read": false,
+      "tautan": "/disposisi"
+    },
+    {
+      "id": 3,
+      "pesan": "Tenggat waktu tugas 'Pemeriksaan Kesehatan Satwa' mendekati batas",
+      "waktu": "2 jam yang lalu",
+      "is_read": false,
+      "tautan": "/tugas"
+    }
+  ]
+}

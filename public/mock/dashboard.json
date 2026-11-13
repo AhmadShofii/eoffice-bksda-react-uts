@@ -1,0 +1,48 @@
+{
+  "status": true,
+  "message": "Data dashboard berhasil diambil",
+  "data": {
+    "statistik": {
+      "surat_masuk": 128,
+      "surat_keluar": 84,
+      "disposisi": 32,
+      "tugas": 15
+    },
+    "ringkasan_status": {
+      "surat_masuk_baru": 12,
+      "disposisi_menunggu": 7,
+      "disposisi_proses": 18,
+      "tugas_berjalan": 9
+    },
+    "aktivitas_terbaru": [
+      {
+        "id": 1,
+        "judul": "Surat Masuk dari Balai Besar KSDA Jawa Timur",
+        "waktu": "10 menit yang lalu",
+        "tipe": "surat_masuk",
+        "keterangan": "Nomor: S.412/BKSDA-JT/2026 tentang Koordinasi Patroli Bersama Kawasan Konservasi"
+      },
+      {
+        "id": 2,
+        "judul": "Disposisi Diteruskan oleh Kepala Seksi",
+        "waktu": "45 menit yang lalu",
+        "tipe": "disposisi",
+        "keterangan": "Diteruskan kepada Staf Pengendali Ekosistem Hutan untuk ditindaklanjuti"
+      },
+      {
+        "id": 3,
+        "judul": "Surat Keluar Telah Diverifikasi",
+        "waktu": "2 jam yang lalu",
+        "tipe": "surat_keluar",
+        "keterangan": "Nomor: S.89/BKSDA-JTG/SKW.II/2026 perihal Laporan Monitoring Satwa Dilindungi"
+      },
+      {
+        "id": 4,
+        "judul": "Tugas Baru Ditugaskan",
+        "waktu": "4 jam yang lalu",
+        "tipe": "tugas",
+        "keterangan": "Inventarisasi flora di Cagar Alam Ulolanang Kecubung"
+      }
+    ]
+  }
+}

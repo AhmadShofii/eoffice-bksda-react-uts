@@ -1,0 +1,42 @@
+{
+  "status": true,
+  "message": "Data daftar tugas berhasil diambil",
+  "data": [
+    {
+      "id": 1,
+      "judul": "Patroli Perlindungan Terpadu Pengamanan Hutan Lindung Gunung Slamet",
+      "deskripsi": "Melaksanakan patroli jalur rawan perambahan liar dan pencatatan jejak mamalia besar.",
+      "penanggung_jawab": "Regu Polhut Wilayah II Pemalang",
+      "prioritas": "Tinggi",
+      "tenggat_waktu": "2026-11-20",
+      "status": "proses"
+    },
+    {
+      "id": 2,
+      "judul": "Penyusunan Laporan Penanganan Konflik Satwa Liar Triwulan IV",
+      "deskripsi": "Rekapitulasi interaksi negatif satwa dengan pemukiman warga di perbatasan hutan rakyat.",
+      "penanggung_jawab": "Fauzan Nurhadi, S.Hut (PEH)",
+      "prioritas": "Sedang",
+      "tenggat_waktu": "2026-11-25",
+      "status": "belum_dikerjakan"
+    },
+    {
+      "id": 3,
+      "judul": "Pemeriksaan Kesehatan Satwa Sitaan di Kandang Transit",
+      "deskripsi": "Medical check-up berkala terhadap 5 ekor satwa burung paruh bengkok hasil operasi gabungan.",
+      "penanggung_jawab": "drh. Anita Paramitha",
+      "prioritas": "Tinggi",
+      "tenggat_waktu": "2026-11-15",
+      "status": "selesai"
+    },
+    {
+      "id": 4,
+      "judul": "Sosialisasi Konservasi Penyu kepada Komunitas Nelayan Pesisir Batang",
+      "deskripsi": "Edukasi penyelamatan penyu terdampar dan perlindungan kawasan peneluran semi-alami.",
+      "penanggung_jawab": "Tim Humas dan Penyuluhan Kehutanan",
+      "prioritas": "Sedang",
+      "tenggat_waktu": "2026-11-30",
+      "status": "belum_dikerjakan"
+    }
+  ]
+}

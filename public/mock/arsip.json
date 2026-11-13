@@ -1,0 +1,39 @@
+{
+  "status": true,
+  "message": "Data arsip dokumen berhasil diambil",
+  "data": [
+    {
+      "id": 1,
+      "kode_klasifikasi": "KS.01/BKSDA-JTG/2026",
+      "judul": "SK Penetapan Zonasi Pengelolaan Kawasan Konservasi Laut Batang",
+      "kategori": "Keputusan / Regulasi",
+      "nomor_surat": "SK.14/MenLHK/KSDAE/2026",
+      "tanggal_arsip": "2026-09-12",
+      "lokasi_fisik": "Lemari Arsip Utama Rak B-03",
+      "file_url": "/mock/documents/arsip-sk-zonasi.pdf",
+      "ukuran_file": "4.8 MB"
+    },
+    {
+      "id": 2,
+      "kode_klasifikasi": "KS.03/BKSDA-JTG/2026",
+      "judul": "Laporan Tahunan Evaluasi Habitat Elang Jawa (Nisaetus bartelsi) 2025",
+      "kategori": "Laporan Evaluasi",
+      "nomor_surat": "LAP.08/BKSDA/PEH/2026",
+      "tanggal_arsip": "2026-08-30",
+      "lokasi_fisik": "Lemari Arsip Khusus Rak C-01",
+      "file_url": "/mock/documents/arsip-lap-elang.pdf",
+      "ukuran_file": "12.3 MB"
+    },
+    {
+      "id": 3,
+      "kode_klasifikasi": "KU.02/BKSDA-JTG/2026",
+      "judul": "Berita Acara Serah Terima Pelepasliaran 3 Ekor Kucing Kuwuk ke Alam Liar",
+      "kategori": "Berita Acara",
+      "nomor_surat": "BA.44/BKSDA-JTG/2026",
+      "tanggal_arsip": "2026-10-01",
+      "lokasi_fisik": "Lemari Dokumen Khusus Box 07",
+      "file_url": "/mock/documents/arsip-bast-pelepasliaran.pdf",
+      "ukuran_file": "2.1 MB"
+    }
+  ]
+}

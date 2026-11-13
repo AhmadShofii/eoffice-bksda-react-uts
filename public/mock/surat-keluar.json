@@ -1,0 +1,54 @@
+{
+  "status": true,
+  "message": "Data surat keluar berhasil diambil",
+  "data": [
+    {
+      "id": 1,
+      "nomor_surat": "S.89/BKSDA-JTG/SKW.II/2026",
+      "tujuan": "Direktur Konservasi Keanekaragaman Hayati Spesies dan Genetik",
+      "perihal": "Laporan Triwulan III Monitoring Populasi Macan Tutul Jawa dan Elang Jawa",
+      "tanggal_surat": "2026-10-20",
+      "kategori": "Laporan",
+      "sifat": "Penting",
+      "status": "terkirim",
+      "ringkasan": "Penyampaian data camera trap dan sensus jelajah primata serta raptor periode Juli-September.",
+      "file_url": "/mock/documents/surat-keluar-89.pdf"
+    },
+    {
+      "id": 2,
+      "nomor_surat": "S.92/BKSDA-JTG/SKW.II/2026",
+      "tujuan": "Kepala Dinas Pertanian dan Perkebunan Kabupaten Batang",
+      "perihal": "Himbauan Mitigasi Konflik Satwa Monyet Ekor Panjang dengan Perkebunan Warga",
+      "tanggal_surat": "2026-10-24",
+      "kategori": "Himbauan",
+      "sifat": "Biasa",
+      "status": "terkirim",
+      "ringkasan": "Sosialisasi penanganan non-lethal dan penanaman tanaman pakan di zona pembatas hutan.",
+      "file_url": "/mock/documents/surat-keluar-92.pdf"
+    },
+    {
+      "id": 3,
+      "nomor_surat": "S.97/BKSDA-JTG/SKW.II/2026",
+      "tujuan": "Kapolres Brebes",
+      "perihal": "Penunjukan Staf Saksi Ahli Identifikasi Satwa Liar Dilindungi",
+      "tanggal_surat": "2026-11-07",
+      "kategori": "Penugasan",
+      "sifat": "Segera",
+      "status": "draft",
+      "ringkasan": "Penugasan PEH Muda sebagai saksi ahli identifikasi morfologi dan status konservasi burung sitaan.",
+      "file_url": "/mock/documents/surat-keluar-97.pdf"
+    },
+    {
+      "id": 4,
+      "nomor_surat": "S.101/BKSDA-JTG/SKW.II/2026",
+      "tujuan": "Seluruh Kepala Resor KSDA Wilayah II Pemalang",
+      "perihal": "Instruksi Siaga Bencana Hidrometeorologi dan Peningkatan Patroli SMART RBM",
+      "tanggal_surat": "2026-11-10",
+      "kategori": "Instruksi",
+      "sifat": "Sangat Segera",
+      "status": "diverifikasi",
+      "ringkasan": "Kesiapsiagaan menghadapi musim hujan ekstrem pada pos pengamatan kawasan konservasi.",
+      "file_url": "/mock/documents/surat-keluar-101.pdf"
+    }
+  ]
+}

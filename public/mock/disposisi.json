@@ -1,0 +1,42 @@
+{
+  "status": true,
+  "message": "Data disposisi berhasil diambil",
+  "data": [
+    {
+      "id": 1,
+      "surat_id": 1,
+      "nomor_surat": "005/KLHK/BKSDA/X/2026",
+      "perihal": "Undangan Rakor Pengawasan Satwa Liar Wilayah Jawa Bagian Tengah",
+      "pemberi_disposisi": "Kepala Seksi Wilayah II Pemalang",
+      "penerima_disposisi": "Staf Pengendali Ekosistem Hutan (PEH)",
+      "instruksi": "Hadir dan siapkan bahan paparan matriks patroli gabungan 2026.",
+      "catatan": "Koordinasikan materi paparan paling lambat H-2 sebelum pelaksanaan rakor.",
+      "batas_waktu": "2026-10-25",
+      "status": "selesai"
+    },
+    {
+      "id": 2,
+      "surat_id": 3,
+      "nomor_surat": "45/KPHP-PEMALANG/XI/2026",
+      "perihal": "Laporan Kejadian Kebakaran Hutan di Perbatasan Kawasan Suaka Margasatwa",
+      "pemberi_disposisi": "Kepala Seksi Wilayah II Pemalang",
+      "penerima_disposisi": "Regu Polisi Kehutanan (Polhut) Reaksi Cepat",
+      "instruksi": "Segera turunkan tim regu lapangan, lakukan ground check dan pemadaman mupuk.",
+      "catatan": "Pastikan perlengkapan water pump dan keselamatan personel lengkap. Laporkan berkala.",
+      "batas_waktu": "2026-11-04",
+      "status": "dalam_proses"
+    },
+    {
+      "id": 3,
+      "surat_id": 4,
+      "nomor_surat": "88/POLRES-BTL/2026",
+      "perihal": "Bantuan Saksi Ahli Identifikasi Burung Pemangsa Dilindungi",
+      "pemberi_disposisi": "Kepala Seksi Wilayah II Pemalang",
+      "penerima_disposisi": "drh. Anita (Dokter Hewan BKSDA Jateng)",
+      "instruksi": "Lakukan pemeriksaan fisik dan verifikasi taksonomi satwa barang bukti sitaan.",
+      "catatan": "Buat Berita Acara Identifikasi dan pastikan kondisi satwa stabil di kandang transit.",
+      "batas_waktu": "2026-11-12",
+      "status": "menunggu"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "status": true,
+  "message": "Data surat masuk berhasil diambil",
+  "data": [
+    {
+      "id": 1,
+      "nomor_surat": "005/KLHK/BKSDA/X/2026",
+      "pengirim": "Direktorat Jenderal KSDAE Kementerian LHK",
+      "perihal": "Undangan Rakor Pengawasan Satwa Liar Wilayah Jawa Bagian Tengah",
+      "tanggal_surat": "2026-10-15",
+      "tanggal_terima": "2026-10-16",
+      "kategori": "Undangan",
+      "sifat": "Penting",
+      "status": "sudah_disposisi",
+      "ringkasan": "Rapat koordinasi bersama Ditjen KSDAE terkait patroli terpadu dan penanganan konflik satwa.",
+      "file_url": "/mock/documents/surat-005.pdf"
+    },
+    {
+      "id": 2,
+      "nomor_surat": "120/DISLHK-JTG/2026",
+      "pengirim": "Dinas Lingkungan Hidup dan Kehutanan Provinsi Jawa Tengah",
+      "perihal": "Permohonan Data Keanekaragaman Hayati Cagar Alam Subah Batang",
+      "tanggal_surat": "2026-10-18",
+      "tanggal_terima": "2026-10-19",
+      "kategori": "Permohonan",
+      "sifat": "Biasa",
+      "status": "menunggu_disposisi",
+      "ringkasan": "Permintaan rekonsiliasi data tutupan vegetasi dan satwa endemik di Cagar Alam Subah.",
+      "file_url": "/mock/documents/surat-120.pdf"
+    },
+    {
+      "id": 3,
+      "nomor_surat": "45/KPHP-PEMALANG/XI/2026",
+      "pengirim": "KPHP Pemalang Wilayah IV",
+      "perihal": "Laporan Kejadian Kebakaran Hutan di Perbatasan Kawasan Suaka Margasatwa",
+      "tanggal_surat": "2026-11-02",
+      "tanggal_terima": "2026-11-02",
+      "kategori": "Laporan",
+      "sifat": "Sangat Segera",
+      "status": "proses",
+      "ringkasan": "Laporan deteksi titik api dini di wilayah penyangga dan langkah pemadaman awal.",
+      "file_url": "/mock/documents/surat-45.pdf"
+    },
+    {
+      "id": 4,
+      "nomor_surat": "88/POLRES-BTL/2026",
+      "pengirim": "Kepolisian Resor Brebes Unit Tipidter",
+      "perihal": "Bantuan Saksi Ahli Identifikasi Burung Pemangsa Dilindungi",
+      "tanggal_surat": "2026-11-05",
+      "tanggal_terima": "2026-11-06",
+      "kategori": "Pemberitahuan",
+      "sifat": "Segera",
+      "status": "sudah_disposisi",
+      "ringkasan": "Permohonan keterangan ahli dalam kasus peredaran satwa Elang Jawa tanpa izin resmi.",
+      "file_url": "/mock/documents/surat-88.pdf"
+    },
+    {
+      "id": 5,
+      "nomor_surat": "02/LSM-WANA/XI/2026",
+      "pengirim": "Yayasan Konservasi Alam Nusantara",
+      "perihal": "Usulan Program Edukasi Konservasi Penyu di Pesisir Utara Jawa Tengah",
+      "tanggal_surat": "2026-11-08",
+      "tanggal_terima": "2026-11-09",
+      "kategori": "Kerjasama",
+      "sifat": "Biasa",
+      "status": "menunggu_disposisi",
+      "ringkasan": "Penyampaian proposal kerja sama kampanye perlindungan penyu lekang dan sarang semi-alami.",
+      "file_url": "/mock/documents/surat-02.pdf"
+    }
+  ]
+}
