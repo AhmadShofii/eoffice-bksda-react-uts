@@ -18,3 +18,9 @@ export { default as ArsipTable } from './ArsipTable';
 export { default as DetailArsipModal } from './DetailArsipModal';
 export { default as DisposisiFormModal } from './DisposisiFormModal';
 export { default as DetailDisposisiModal } from './DetailDisposisiModal';
+
+// Modul Anggota 5: Tugas Pegawai, Integrasi & Dokumentasi
+export { default as TaskCard, getTaskStatusMeta, getPriorityMeta } from './TaskCard';
+export { default as TaskFilter } from './TaskFilter';
+export { default as TaskForm } from './TaskForm';
+export { default as DetailTaskModal } from './DetailTaskModal';

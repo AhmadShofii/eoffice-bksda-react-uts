@@ -3817,3 +3817,1242 @@ body {
     justify-content: center;
   }
 }
+
+
+/* ==========================================================================
+   13. Modul Manajemen Tugas Pegawai (Tanggung Jawab Anggota 5)
+   Komponen: TaskCard, TaskFilter, TaskForm, DetailTaskModal, dan Responsiveness
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   A. Toast Notification Banner
+   -------------------------------------------------------------------------- */
+.toast-banner {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 1200;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.875rem 1.25rem;
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.15), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  animation: slideInUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  max-width: 420px;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.toast-banner--success {
+  background-color: var(--primary-900);
+  color: #ffffff;
+  border: 1px solid var(--primary-700);
+}
+
+.toast-banner--error {
+  background-color: #991b1b;
+  color: #ffffff;
+  border: 1px solid #b91c1c;
+}
+
+.toast-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.toast-icon {
+  flex-shrink: 0;
+  color: var(--primary-300);
+}
+
+.toast-banner--error .toast-icon {
+  color: #fca5a5;
+}
+
+.toast-text {
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.toast-close-btn {
+  background: transparent;
+  border: none;
+  color: rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-sm);
+  transition: all 0.2s ease;
+}
+
+.toast-close-btn:hover {
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   B. Ringkasan Statistik Tugas (Tasks Summary Grid)
+   -------------------------------------------------------------------------- */
+.tasks-summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.75rem;
+}
+
+.task-summary-card {
+  background: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.task-summary-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.summary-card-icon-box {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.total-icon-box {
+  background-color: var(--primary-50);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-200);
+}
+
+.pending-icon-box {
+  background-color: var(--slate-100);
+  color: var(--slate-700);
+  border: 1px solid var(--slate-300);
+}
+
+.process-icon-box {
+  background-color: var(--accent-blue-light);
+  color: var(--accent-blue);
+  border: 1px solid var(--accent-blue-border);
+}
+
+.completed-icon-box {
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.summary-card-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.summary-card-label {
+  font-size: 0.8125rem;
+  color: var(--slate-500);
+  font-weight: 500;
+  margin-bottom: 0.125rem;
+}
+
+.summary-card-value {
+  font-size: 1.625rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  line-height: 1.2;
+}
+
+.summary-card-sub {
+  font-size: 0.75rem;
+  color: var(--slate-400);
+  margin-top: 0.125rem;
+}
+
+/* --------------------------------------------------------------------------
+   C. Komponen Filter Tugas (TaskFilter)
+   -------------------------------------------------------------------------- */
+.task-filter-panel {
+  background: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-lg);
+  padding: 1.25rem;
+  margin-bottom: 1.75rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.task-filter-top-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  padding-bottom: 0.875rem;
+  border-bottom: 1px solid var(--slate-100);
+}
+
+.task-status-tabs {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.task-tab-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  background-color: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: 9999px;
+  color: var(--slate-600);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.task-tab-btn:hover {
+  background-color: var(--slate-100);
+  color: var(--slate-900);
+  border-color: var(--slate-300);
+}
+
+.task-tab-btn.is-active {
+  background-color: var(--primary-700);
+  color: #ffffff;
+  border-color: var(--primary-700);
+  box-shadow: 0 2px 4px rgba(21, 128, 61, 0.25);
+}
+
+.task-tab-icon {
+  flex-shrink: 0;
+}
+
+.task-tab-counter {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 0.125rem 0.45rem;
+  border-radius: 9999px;
+  min-width: 1.25rem;
+  line-height: 1;
+}
+
+.task-tab-btn.is-active .task-tab-counter {
+  background-color: rgba(255, 255, 255, 0.25);
+  color: #ffffff;
+}
+
+.task-tab-btn:not(.is-active) .badge-tab-all {
+  background-color: var(--slate-200);
+  color: var(--slate-700);
+}
+
+.task-tab-btn:not(.is-active) .badge-tab-pending {
+  background-color: var(--slate-200);
+  color: var(--slate-700);
+}
+
+.task-tab-btn:not(.is-active) .badge-tab-process {
+  background-color: var(--accent-blue-light);
+  color: var(--accent-blue);
+}
+
+.task-tab-btn:not(.is-active) .badge-tab-completed {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.btn-reset-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: var(--accent-rose);
+  background: var(--accent-rose-light);
+  border: 1px solid var(--accent-rose-border);
+  padding: 0.375rem 0.75rem;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-reset-filter:hover {
+  background-color: #ffe4e6;
+  border-color: var(--accent-rose);
+}
+
+.task-filter-controls-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.task-search-box {
+  flex: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.task-search-icon {
+  position: absolute;
+  left: 0.875rem;
+  color: var(--slate-400);
+  pointer-events: none;
+}
+
+.task-search-input {
+  width: 100%;
+  padding: 0.625rem 2.25rem 0.625rem 2.5rem;
+  border: 1px solid var(--slate-300);
+  border-radius: var(--border-radius-md);
+  font-size: 0.875rem;
+  color: var(--slate-800);
+  background-color: var(--slate-50);
+  transition: all 0.2s ease;
+}
+
+.task-search-input:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+}
+
+.task-search-clear {
+  position: absolute;
+  right: 0.75rem;
+  background: transparent;
+  border: none;
+  color: var(--slate-400);
+  cursor: pointer;
+  padding: 0.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--border-radius-sm);
+}
+
+.task-search-clear:hover {
+  color: var(--slate-700);
+}
+
+.task-select-filter {
+  min-width: 200px;
+}
+
+.task-select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.task-select-icon {
+  position: absolute;
+  left: 0.875rem;
+  color: var(--slate-400);
+  pointer-events: none;
+}
+
+.task-select {
+  width: 100%;
+  padding: 0.625rem 1rem 0.625rem 2.5rem;
+  border: 1px solid var(--slate-300);
+  border-radius: var(--border-radius-md);
+  font-size: 0.875rem;
+  color: var(--slate-800);
+  background-color: var(--slate-50);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.task-select:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  background-color: #ffffff;
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   D. Grid Kartu Tugas & Komponen TaskCard
+   -------------------------------------------------------------------------- */
+.tasks-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+  gap: 1.25rem;
+}
+
+.task-card {
+  background: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-lg);
+  padding: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.task-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--primary-300);
+  box-shadow: var(--shadow-md);
+}
+
+.task-card:focus-visible {
+  outline: 2px solid var(--primary-500);
+  outline-offset: 2px;
+}
+
+.task-card--completed {
+  border-color: #bbf7d0;
+  background: linear-gradient(180deg, #ffffff 0%, #f0fdf4 100%);
+}
+
+.task-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.875rem;
+}
+
+/* Badges Status & Prioritas */
+.task-priority-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--border-radius-sm);
+}
+
+.task-priority-pill--high {
+  background-color: var(--accent-rose-light);
+  color: var(--accent-rose);
+  border: 1px solid var(--accent-rose-border);
+}
+
+.task-priority-pill--medium {
+  background-color: var(--accent-amber-light);
+  color: var(--accent-amber);
+  border: 1px solid var(--accent-amber-border);
+}
+
+.task-priority-pill--low {
+  background-color: var(--primary-50);
+  color: var(--primary-700);
+  border: 1px solid var(--primary-200);
+}
+
+.task-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+}
+
+.task-status-pill--pending {
+  background-color: var(--slate-100);
+  color: var(--slate-700);
+  border: 1px solid var(--slate-300);
+}
+
+.task-status-pill--process {
+  background-color: var(--accent-blue-light);
+  color: var(--accent-blue);
+  border: 1px solid var(--accent-blue-border);
+}
+
+.task-status-pill--completed {
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.task-card-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.task-card-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.task-card-desc {
+  font-size: 0.8125rem;
+  color: var(--slate-600);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Progress Bar */
+.task-progress-wrapper {
+  margin-bottom: 1rem;
+  background-color: var(--slate-50);
+  padding: 0.625rem 0.75rem;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--slate-100);
+}
+
+.task-progress-labels {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  margin-bottom: 0.375rem;
+}
+
+.task-progress-text {
+  color: var(--slate-500);
+}
+
+.task-progress-percent {
+  color: var(--slate-700);
+}
+
+.task-progress-track {
+  width: 100%;
+  height: 6px;
+  background-color: var(--slate-200);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+
+.task-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  transition: width 0.4s ease;
+}
+
+.task-progress-fill--belum_dikerjakan {
+  background-color: var(--slate-400);
+}
+
+.task-progress-fill--proses {
+  background-color: var(--accent-blue);
+}
+
+.task-progress-fill--selesai {
+  background-color: var(--primary-600);
+}
+
+/* Metadata Penanggung Jawab & Deadline */
+.task-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-bottom: 0.875rem;
+}
+
+.task-meta-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.task-meta-icon {
+  color: var(--slate-400);
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+}
+
+.task-meta-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-meta-label {
+  font-size: 0.6875rem;
+  color: var(--slate-400);
+  font-weight: 500;
+}
+
+.task-meta-value {
+  font-size: 0.75rem;
+  color: var(--slate-700);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* Deadline status indicator */
+.task-deadline-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  color: var(--slate-500);
+  font-size: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.task-deadline-badge {
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.task-deadline-badge--normal {
+  color: var(--slate-600);
+}
+
+.task-deadline-badge--warning {
+  color: var(--accent-amber);
+  font-weight: 700;
+}
+
+.task-deadline-badge--overdue {
+  color: var(--accent-rose);
+  font-weight: 700;
+}
+
+.task-deadline-badge--completed {
+  color: #047857;
+  font-weight: 600;
+}
+
+/* Footer Kartu & Tombol Aksi */
+.task-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.625rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--slate-100);
+  margin-top: auto;
+}
+
+.btn-task-detail {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.45rem 0.75rem;
+  background-color: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-sm);
+  color: var(--slate-700);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-task-detail:hover {
+  background-color: var(--slate-100);
+  color: var(--slate-900);
+  border-color: var(--slate-300);
+}
+
+.btn-task-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.45rem 0.875rem;
+  border-radius: var(--border-radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.btn-task-action--proses {
+  background-color: var(--accent-blue);
+  color: #ffffff;
+  border-color: var(--accent-blue);
+}
+
+.btn-task-action--proses:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+}
+
+.btn-task-action--selesai {
+  background-color: var(--primary-700);
+  color: #ffffff;
+  border-color: var(--primary-700);
+}
+
+.btn-task-action--selesai:hover {
+  background-color: var(--primary-800);
+  border-color: var(--primary-800);
+}
+
+/* --------------------------------------------------------------------------
+   E. Form Modal Tambah Tugas (TaskForm)
+   -------------------------------------------------------------------------- */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 1100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  animation: fadeInModal 0.2s ease-out;
+}
+
+@keyframes fadeInModal {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-dialog {
+  background: #ffffff;
+  border-radius: var(--border-radius-xl);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: scaleInModal 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal-dialog--md {
+  max-width: 620px;
+}
+
+@keyframes scaleInModal {
+  from {
+    opacity: 0;
+    transform: scale(0.96) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.modal-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--slate-100);
+  background-color: #ffffff;
+}
+
+.modal-header-icon-box {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--border-radius-md);
+  background-color: var(--primary-50);
+  border: 1px solid var(--primary-200);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.modal-icon-brand {
+  color: var(--primary-700);
+}
+
+.modal-header-text {
+  flex: 1;
+}
+
+.modal-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  line-height: 1.3;
+}
+
+.modal-subtitle {
+  font-size: 0.8125rem;
+  color: var(--slate-500);
+  margin-top: 0.25rem;
+}
+
+.modal-close-btn {
+  background: transparent;
+  border: none;
+  color: var(--slate-400);
+  cursor: pointer;
+  padding: 0.375rem;
+  border-radius: var(--border-radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.modal-close-btn:hover {
+  background-color: var(--slate-100);
+  color: var(--slate-700);
+}
+
+.modal-form-content {
+  padding: 1.25rem 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+}
+
+.form-error-banner {
+  margin: 1rem 1.5rem 0;
+  padding: 0.75rem 1rem;
+  background-color: var(--accent-rose-light);
+  border: 1px solid var(--accent-rose-border);
+  color: #991b1b;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.form-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--slate-700);
+}
+
+.form-label.required::after {
+  content: ' *';
+  color: var(--accent-rose);
+}
+
+.form-input,
+.form-select,
+.form-textarea {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--slate-300);
+  border-radius: var(--border-radius-md);
+  font-size: 0.875rem;
+  color: var(--slate-800);
+  background-color: #ffffff;
+  transition: all 0.2s ease;
+  font-family: inherit;
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+  outline: none;
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+}
+
+.form-input--error,
+.form-select--error,
+.form-textarea--error {
+  border-color: var(--accent-rose) !important;
+  background-color: #fff5f5;
+}
+
+.form-input--error:focus,
+.form-select--error:focus,
+.form-textarea--error:focus {
+  box-shadow: 0 0 0 3px rgba(225, 29, 72, 0.15) !important;
+}
+
+.form-feedback-error {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  color: var(--accent-rose);
+  font-weight: 600;
+  margin-top: 0.125rem;
+}
+
+.select-with-action {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btn-toggle-custom {
+  white-space: nowrap;
+  background-color: var(--slate-100);
+  border: 1px solid var(--slate-300);
+  color: var(--slate-700);
+  border-radius: var(--border-radius-md);
+  padding: 0 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-toggle-custom:hover {
+  background-color: var(--slate-200);
+  color: var(--slate-900);
+}
+
+.label-with-hint {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.char-counter {
+  font-size: 0.6875rem;
+  color: var(--slate-400);
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--slate-100);
+  background-color: var(--slate-50);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.75rem;
+}
+
+.btn-secondary {
+  background-color: #ffffff;
+  border: 1px solid var(--slate-300);
+  color: var(--slate-700);
+  padding: 0.55rem 1.125rem;
+  border-radius: var(--border-radius-md);
+  font-size: 0.875rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--slate-100);
+  color: var(--slate-900);
+}
+
+.spinner-icon {
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* --------------------------------------------------------------------------
+   F. Detail Task Modal
+   -------------------------------------------------------------------------- */
+.modal-body-detail {
+  padding: 1.25rem 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.detail-tags-ribbon {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+.task-category-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--slate-100);
+  color: var(--slate-700);
+  border: 1px solid var(--slate-200);
+}
+
+.detail-task-heading {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  line-height: 1.35;
+}
+
+.detail-progress-section {
+  background: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-md);
+  padding: 0.875rem 1rem;
+}
+
+.detail-progress-label-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.detail-progress-label {
+  color: var(--slate-600);
+}
+
+.detail-progress-value {
+  color: var(--slate-900);
+  font-weight: 700;
+}
+
+.detail-info-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.detail-block-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--slate-800);
+}
+
+.detail-block-text {
+  font-size: 0.875rem;
+  color: var(--slate-700);
+  line-height: 1.6;
+  background-color: var(--slate-50);
+  padding: 0.875rem 1rem;
+  border-radius: var(--border-radius-md);
+  border: 1px solid var(--slate-200);
+}
+
+.detail-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.detail-meta-card {
+  background-color: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-md);
+  padding: 0.875rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.detail-meta-sub {
+  font-size: 0.6875rem;
+  color: var(--slate-400);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.detail-meta-main {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.detail-meta-ico {
+  color: var(--primary-600);
+  flex-shrink: 0;
+}
+
+.detail-meta-strong {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--slate-900);
+}
+
+.detail-status-switch {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--slate-100);
+}
+
+.status-button-group {
+  display: flex;
+  gap: 0.625rem;
+  flex-wrap: wrap;
+}
+
+.btn-status-choice {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.5rem 0.875rem;
+  border: 1px solid var(--slate-200);
+  background-color: var(--slate-50);
+  color: var(--slate-700);
+  border-radius: var(--border-radius-sm);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-status-choice:hover {
+  background-color: var(--slate-100);
+  border-color: var(--slate-300);
+}
+
+.btn-status-choice.is-active {
+  background-color: var(--slate-800);
+  color: #ffffff;
+  border-color: var(--slate-800);
+}
+
+.btn-status-choice--process.is-active {
+  background-color: var(--accent-blue);
+  color: #ffffff;
+  border-color: var(--accent-blue);
+}
+
+.btn-status-choice--completed.is-active {
+  background-color: var(--primary-700);
+  color: #ffffff;
+  border-color: var(--primary-700);
+}
+
+/* --------------------------------------------------------------------------
+   G. Media Queries Responsif Modul Tugas Pegawai (Anggota 5)
+   -------------------------------------------------------------------------- */
+@media (max-width: 1200px) {
+  .tasks-summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .task-filter-controls-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .task-select-filter {
+    min-width: 100%;
+  }
+
+  .tasks-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .tasks-summary-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .task-status-tabs {
+    width: 100%;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+  }
+
+  .form-grid-2,
+  .detail-meta-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .task-card-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-task-detail,
+  .btn-task-action {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .status-button-group {
+    flex-direction: column;
+  }
+
+  .btn-status-choice {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .toast-banner {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+    max-width: none;
+  }
+}

@@ -24,3 +24,4 @@ Folder ini disiapkan oleh **Anggota 1** sebagai wadah komponen reusable bagi sel
    - `TaskCard.jsx` (kartu tugas dengan progress & deadline)
    - `TaskFilter.jsx` (filter status & prioritas tugas)
    - `TaskForm.jsx` (form penambahan tugas dengan validasi)
+   - `DetailTaskModal.jsx` (modal lembar rincian tugas & pembaruan status)
