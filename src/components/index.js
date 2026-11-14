@@ -10,3 +10,11 @@ export { default as SuratTable } from './SuratTable';
 export { default as SuratCard, getStatusBadge, getSifatBadge } from './SuratCard';
 export { default as DetailSuratModal } from './DetailSuratModal';
 export { default as SuratDetailModal } from './DetailSuratModal';
+
+// Modul Anggota 4: Disposisi & Arsip Dokumen
+export { default as StatusBadge, getStatusMeta } from './StatusBadge';
+export { default as DisposisiCard } from './DisposisiCard';
+export { default as ArsipTable } from './ArsipTable';
+export { default as DetailArsipModal } from './DetailArsipModal';
+export { default as DisposisiFormModal } from './DisposisiFormModal';
+export { default as DetailDisposisiModal } from './DetailDisposisiModal';
