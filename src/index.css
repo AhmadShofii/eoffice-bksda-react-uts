@@ -1394,6 +1394,1221 @@ body {
   border: 1px solid var(--primary-200);
 }
 
+/* ==========================================================================
+   9.1 Modul Surat Masuk & Surat Keluar (Tanggung Jawab Anggota 3)
+   Komponen: SearchBar, SuratTable, SuratCard, DetailSuratModal, Metrics & Filters
+   ========================================================================== */
+
+/* Pretitle & Layout Header */
+.page-header-pretitle {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--primary-700);
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.text-primary {
+  color: var(--primary-600);
+}
+
+/* --------------------------------------------------------------------------
+   A. Surat Metrics Grid (Ringkasan Cepat Status Persuratan)
+   -------------------------------------------------------------------------- */
+.surat-metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.surat-metric-card {
+  background-color: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-lg);
+  padding: 1.25rem 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.125rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.surat-metric-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.surat-metric-card .metric-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--border-radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.surat-metric--total .metric-icon {
+  background-color: var(--primary-50);
+  color: var(--primary-700);
+}
+
+.surat-metric--menunggu .metric-icon,
+.surat-metric--draft .metric-icon {
+  background-color: var(--accent-amber-light);
+  color: var(--accent-amber);
+}
+
+.surat-metric--proses .metric-icon,
+.surat-metric--verifikasi .metric-icon {
+  background-color: var(--accent-blue-light);
+  color: var(--accent-blue);
+}
+
+.surat-metric--selesai .metric-icon,
+.surat-metric--terkirim .metric-icon {
+  background-color: #ecfdf5;
+  color: #059669;
+}
+
+.surat-metric-card .metric-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.surat-metric-card .metric-label {
+  font-size: 0.8125rem;
+  color: var(--slate-500);
+  font-weight: 500;
+}
+
+.surat-metric-card .metric-value {
+  font-size: 1.625rem;
+  font-weight: 800;
+  color: var(--slate-900);
+  line-height: 1.2;
+}
+
+/* --------------------------------------------------------------------------
+   B. Surat Control Card: SearchBar & Filter Multi-Dimensi
+   -------------------------------------------------------------------------- */
+.surat-control-card {
+  background-color: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-lg);
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.control-row-primary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.surat-search-stretch {
+  flex: 1;
+  min-width: 280px;
+}
+
+/* Komponen Reusable SearchBar */
+.search-bar-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.search-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 240px;
+}
+
+.search-input-icon {
+  position: absolute;
+  left: 0.875rem;
+  color: var(--slate-400);
+  pointer-events: none;
+}
+
+.search-input-field {
+  width: 100%;
+  padding: 0.625rem 2.5rem 0.625rem 2.5rem;
+  font-family: inherit;
+  font-size: 0.875rem;
+  color: var(--slate-800);
+  background-color: var(--slate-50);
+  border: 1px solid var(--slate-300);
+  border-radius: var(--border-radius-md);
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.search-input-field:focus {
+  background-color: #ffffff;
+  border-color: var(--primary-600);
+  box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.15);
+}
+
+.search-input-field::placeholder {
+  color: var(--slate-400);
+}
+
+.search-clear-btn {
+  position: absolute;
+  right: 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--slate-200);
+  color: var(--slate-600);
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.search-clear-btn:hover {
+  background-color: var(--slate-300);
+  color: var(--slate-900);
+}
+
+.search-result-pill {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--slate-600);
+  background-color: var(--slate-100);
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  border: 1px solid var(--slate-200);
+  white-space: nowrap;
+}
+
+/* View Mode Toggle (Tabel vs Kartu) */
+.view-mode-toggle {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--slate-100);
+  border: 1px solid var(--slate-200);
+  padding: 0.25rem;
+  border-radius: var(--border-radius-md);
+  gap: 0.25rem;
+}
+
+.btn-toggle-view {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  padding: 0.4rem 0.875rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--slate-600);
+  background: transparent;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-toggle-view:hover {
+  color: var(--slate-900);
+}
+
+.btn-toggle-view.active {
+  background-color: #ffffff;
+  color: var(--primary-800);
+  box-shadow: var(--shadow-xs);
+}
+
+/* Baris Filter Dropdown */
+.control-row-filters {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--slate-100);
+}
+
+.filter-group {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.filter-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--slate-600);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  white-space: nowrap;
+}
+
+.filter-select {
+  font-family: inherit;
+  font-size: 0.8125rem;
+  color: var(--slate-800);
+  background-color: var(--slate-50);
+  border: 1px solid var(--slate-300);
+  border-radius: var(--border-radius-sm);
+  padding: 0.45rem 0.875rem;
+  outline: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.filter-select:focus {
+  border-color: var(--primary-600);
+  box-shadow: 0 0 0 2px rgba(34, 197, 94, 0.15);
+  background-color: #ffffff;
+}
+
+.btn-reset-filters {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--slate-600);
+  background-color: var(--slate-100);
+  border: 1px solid var(--slate-300);
+  border-radius: var(--border-radius-sm);
+  padding: 0.45rem 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  margin-left: auto;
+}
+
+.btn-reset-filters:hover {
+  background-color: var(--accent-rose-light);
+  color: var(--accent-rose);
+  border-color: var(--accent-rose-border);
+}
+
+/* --------------------------------------------------------------------------
+   C. Badges: Status, Sifat & Kategori
+   -------------------------------------------------------------------------- */
+.badge-kategori {
+  display: inline-block;
+  background-color: var(--slate-100);
+  color: var(--slate-700);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--slate-200);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.badge-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 0.25rem 0.625rem;
+  border-radius: 9999px;
+  line-height: 1.2;
+}
+
+.badge-status--amber {
+  background-color: var(--accent-amber-light);
+  color: #b45309;
+  border: 1px solid var(--accent-amber-border);
+}
+
+.badge-status--blue {
+  background-color: var(--accent-blue-light);
+  color: #1d4ed8;
+  border: 1px solid var(--accent-blue-border);
+}
+
+.badge-status--emerald {
+  background-color: #ecfdf5;
+  color: #047857;
+  border: 1px solid #a7f3d0;
+}
+
+.badge-status--slate {
+  background-color: var(--slate-100);
+  color: var(--slate-700);
+  border: 1px solid var(--slate-200);
+}
+
+.badge-sifat {
+  display: inline-block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  padding: 0.2rem 0.55rem;
+  border-radius: 9999px;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.badge-sifat--neutral {
+  background-color: var(--slate-100);
+  color: var(--slate-600);
+  border: 1px solid var(--slate-200);
+}
+
+.badge-sifat--amber {
+  background-color: #fffbeb;
+  color: #b45309;
+  border: 1px solid #fef3c7;
+}
+
+.badge-sifat--rose {
+  background-color: #fff1f2;
+  color: #e11d48;
+  border: 1px solid #ffe4e6;
+}
+
+.badge-sifat--purple {
+  background-color: var(--accent-purple-light);
+  color: var(--accent-purple);
+  border: 1px solid var(--accent-purple-border);
+}
+
+/* --------------------------------------------------------------------------
+   D. Komponen Reusable: SuratTable (Tabel Semantik & Responsif)
+   -------------------------------------------------------------------------- */
+.surat-table-outer {
+  background-color: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+
+.table-responsive-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-responsive-wrapper:focus-visible {
+  outline: 2px solid var(--primary-600);
+  outline-offset: -2px;
+}
+
+.surat-data-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.875rem;
+}
+
+.surat-data-table thead {
+  background-color: var(--slate-50);
+  border-bottom: 1px solid var(--slate-200);
+}
+
+.surat-data-table th {
+  padding: 0.875rem 1rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--slate-500);
+  white-space: nowrap;
+}
+
+.surat-data-table td {
+  padding: 1rem;
+  border-bottom: 1px solid var(--slate-100);
+  vertical-align: middle;
+  color: var(--slate-700);
+}
+
+.surat-table-row {
+  transition: background-color 0.15s ease;
+}
+
+.surat-table-row:hover {
+  background-color: #f8fafc;
+}
+
+.surat-data-table tr:last-child td {
+  border-bottom: none;
+}
+
+.th-center,
+.td-center {
+  text-align: center;
+}
+
+.td-index .index-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background-color: var(--slate-100);
+  color: var(--slate-600);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.td-nomor-tanggal {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.table-nomor-surat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.table-nomor-surat code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--primary-900);
+  background-color: var(--primary-50);
+  padding: 0.15rem 0.45rem;
+  border-radius: var(--border-radius-sm);
+  border: 1px solid var(--primary-200);
+}
+
+.file-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--accent-rose);
+  background-color: var(--accent-rose-light);
+  border: 1px solid var(--accent-rose-border);
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--border-radius-sm);
+}
+
+.table-tanggal-row {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--slate-500);
+}
+
+.table-tanggal-row .date-icon {
+  color: var(--slate-400);
+}
+
+.text-terima-date {
+  color: var(--slate-400);
+  font-style: italic;
+}
+
+.td-pihak .pihak-wrapper {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.td-pihak .pihak-icon {
+  color: var(--primary-600);
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.td-pihak .pihak-name {
+  font-weight: 600;
+  color: var(--slate-800);
+  line-height: 1.4;
+}
+
+.td-perihal {
+  max-width: 320px;
+}
+
+.perihal-title {
+  font-weight: 600;
+  color: var(--slate-900);
+  line-height: 1.4;
+  margin-bottom: 0.35rem;
+}
+
+.perihal-tags {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.table-summary-preview {
+  font-size: 0.75rem;
+  color: var(--slate-400);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 220px;
+}
+
+.btn-table-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--primary-700);
+  background-color: var(--primary-50);
+  border: 1px solid var(--primary-200);
+  border-radius: var(--border-radius-sm);
+  padding: 0.375rem 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-table-action:hover {
+  background-color: var(--primary-600);
+  color: #ffffff;
+  border-color: var(--primary-600);
+}
+
+/* --------------------------------------------------------------------------
+   E. Komponen Reusable: SuratCard (Tampilan Grid & Mobile)
+   -------------------------------------------------------------------------- */
+.surat-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.25rem;
+}
+
+.surat-card-item {
+  background-color: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-lg);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.surat-card-item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-300);
+}
+
+.surat-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.surat-card-tags {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  flex-wrap: wrap;
+}
+
+.surat-card-title {
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.surat-card-nomor {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-bottom: 0.75rem;
+}
+
+.surat-card-nomor-label {
+  font-size: 0.75rem;
+  color: var(--slate-500);
+}
+
+.surat-card-nomor-code {
+  font-family: ui-monospace, SFMono-Regular, monospace;
+  font-size: 0.75rem;
+  color: var(--primary-800);
+  background-color: var(--primary-50);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  border: 1px solid var(--primary-200);
+}
+
+.surat-card-meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 0.875rem;
+  padding: 0.625rem;
+  background-color: var(--slate-50);
+  border-radius: var(--border-radius-md);
+  font-size: 0.8125rem;
+}
+
+.surat-card-meta-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.surat-card-meta-item .meta-icon {
+  color: var(--primary-600);
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.surat-card-meta-item .meta-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.surat-card-meta-item .meta-label {
+  font-size: 0.6875rem;
+  color: var(--slate-400);
+  text-transform: uppercase;
+}
+
+.surat-card-meta-item .meta-val {
+  color: var(--slate-800);
+  font-weight: 600;
+}
+
+.surat-card-meta-item .meta-received {
+  font-size: 0.75rem;
+  color: var(--slate-500);
+  font-style: italic;
+}
+
+.surat-card-summary {
+  font-size: 0.8125rem;
+  color: var(--slate-600);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.surat-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding-top: 0.875rem;
+  border-top: 1px solid var(--slate-100);
+  margin-top: auto;
+}
+
+.surat-card-attachment-indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  color: var(--accent-rose);
+  font-weight: 600;
+}
+
+.surat-card-attachment-indicator.text-muted {
+  color: var(--slate-400);
+  font-weight: normal;
+}
+
+.btn-card-detail {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--primary-600);
+  border: 1px solid var(--primary-600);
+  border-radius: var(--border-radius-sm);
+  padding: 0.4rem 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-card-detail:hover {
+  background-color: var(--primary-700);
+  border-color: var(--primary-700);
+}
+
+/* --------------------------------------------------------------------------
+   F. Empty State UI
+   -------------------------------------------------------------------------- */
+.empty-state-card {
+  background-color: #ffffff;
+  border: 1px dashed var(--slate-300);
+  border-radius: var(--border-radius-lg);
+  padding: 3.5rem 1.5rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  max-width: 600px;
+  margin: 1.5rem auto;
+}
+
+.empty-state-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background-color: var(--slate-100);
+  color: var(--slate-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.25rem;
+}
+
+.empty-state-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--slate-800);
+  margin-bottom: 0.5rem;
+}
+
+.empty-state-desc {
+  font-size: 0.875rem;
+  color: var(--slate-500);
+  max-width: 440px;
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.btn-empty-reset {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--primary-700);
+  background-color: var(--primary-50);
+  border: 1px solid var(--primary-200);
+  border-radius: var(--border-radius-sm);
+  padding: 0.5rem 1.125rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-empty-reset:hover {
+  background-color: var(--primary-600);
+  color: #ffffff;
+  border-color: var(--primary-600);
+}
+
+/* --------------------------------------------------------------------------
+   G. Detail Surat Modal (Aksesibel Dialog & Pratinjau Dokumen)
+   -------------------------------------------------------------------------- */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  animation: modal-fade-in 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modal-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.modal-dialog {
+  background-color: #ffffff;
+  border-radius: var(--border-radius-xl);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  width: 100%;
+  max-width: 760px;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: modal-slide-up 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes modal-slide-up {
+  from {
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    transform: translateY(0) scale(1);
+  }
+}
+
+.modal-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid var(--slate-200);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: var(--slate-50);
+}
+
+.modal-header-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.modal-type-chip {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--primary-700);
+}
+
+.modal-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--slate-900);
+}
+
+.modal-btn-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--slate-200);
+  color: var(--slate-600);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+
+.modal-btn-close:hover {
+  background-color: var(--slate-300);
+  color: var(--slate-900);
+}
+
+.modal-body {
+  padding: 1.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.modal-banner {
+  background-color: var(--primary-50);
+  border: 1px solid var(--primary-200);
+  border-radius: var(--border-radius-md);
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.modal-banner-nomor {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.banner-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--primary-900);
+}
+
+.banner-code {
+  font-family: ui-monospace, monospace;
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--primary-950);
+  background-color: #ffffff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  border: 1px solid var(--primary-300);
+}
+
+.modal-banner-badges {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  flex-wrap: wrap;
+}
+
+.modal-section {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.section-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--slate-400);
+}
+
+.modal-perihal-text {
+  font-size: 1.0625rem;
+  font-weight: 700;
+  color: var(--slate-900);
+  line-height: 1.5;
+}
+
+.modal-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.modal-info-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  padding: 0.875rem 1rem;
+  background-color: var(--slate-50);
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-md);
+}
+
+.modal-info-item .info-icon-wrapper {
+  color: var(--primary-600);
+  margin-top: 0.15rem;
+  flex-shrink: 0;
+}
+
+.modal-info-item .info-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.modal-info-item .info-label {
+  font-size: 0.6875rem;
+  font-weight: 600;
+  color: var(--slate-400);
+  text-transform: uppercase;
+}
+
+.modal-info-item .info-value {
+  font-size: 0.875rem;
+  color: var(--slate-800);
+  line-height: 1.4;
+}
+
+.modal-summary-box {
+  background-color: #f8fafc;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-md);
+  padding: 1.125rem 1.25rem;
+}
+
+.modal-summary-box .summary-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--primary-700);
+  margin-bottom: 0.5rem;
+}
+
+.modal-summary-box .summary-content {
+  font-size: 0.875rem;
+  color: var(--slate-700);
+  line-height: 1.6;
+}
+
+.modal-attachment-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  background-color: #ffffff;
+  border: 1px solid var(--slate-200);
+  border-radius: var(--border-radius-md);
+  padding: 0.875rem 1.125rem;
+  box-shadow: var(--shadow-xs);
+}
+
+.attachment-left {
+  display: flex;
+  align-items: center;
+  gap: 0.875rem;
+}
+
+.file-icon-box {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--border-radius-sm);
+  background-color: var(--accent-rose-light);
+  color: var(--accent-rose);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.attachment-filename {
+  font-size: 0.875rem;
+  font-weight: 700;
+  color: var(--slate-900);
+}
+
+.attachment-size {
+  font-size: 0.75rem;
+  color: var(--slate-400);
+}
+
+.btn-download-attachment {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--primary-700);
+  background-color: var(--primary-50);
+  border: 1px solid var(--primary-200);
+  border-radius: var(--border-radius-sm);
+  padding: 0.45rem 0.875rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.btn-download-attachment:hover {
+  background-color: var(--primary-600);
+  color: #ffffff;
+  border-color: var(--primary-600);
+}
+
+.modal-attachment-empty {
+  font-size: 0.8125rem;
+  color: var(--slate-400);
+  font-style: italic;
+  padding: 0.75rem 1rem;
+  background-color: var(--slate-50);
+  border-radius: var(--border-radius-md);
+}
+
+.modal-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid var(--slate-200);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--slate-50);
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.modal-footer-left {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.btn-footer-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--primary-800);
+  background-color: var(--primary-100);
+  border: 1px solid var(--primary-300);
+  border-radius: var(--border-radius-sm);
+  padding: 0.5rem 0.875rem;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+.btn-footer-link:hover {
+  background-color: var(--primary-600);
+  color: #ffffff;
+}
+
+.btn-footer-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--slate-700);
+  background-color: #ffffff;
+  border: 1px solid var(--slate-300);
+  border-radius: var(--border-radius-sm);
+  padding: 0.5rem 0.875rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-footer-secondary:hover {
+  background-color: var(--slate-100);
+  color: var(--slate-900);
+}
+
+.btn-footer-primary {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--slate-800);
+  border: 1px solid var(--slate-800);
+  border-radius: var(--border-radius-sm);
+  padding: 0.5rem 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-footer-primary:hover {
+  background-color: var(--slate-900);
+}
+
 /* --------------------------------------------------------------------------
    10. Footer Component
    -------------------------------------------------------------------------- */
@@ -1516,6 +2731,10 @@ body {
   .navbar-date-chip {
     display: none;
   }
+
+  .surat-metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 /* Mobile Devices (max-width: 768px) */
@@ -1598,6 +2817,88 @@ body {
   .footer-container {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  /* Responsif Modul Surat Masuk & Keluar */
+  .control-row-primary {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .view-mode-toggle {
+    justify-content: center;
+  }
+
+  .btn-toggle-view {
+    flex: 1;
+    justify-content: center;
+  }
+
+  .control-row-filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+  }
+
+  .filter-group {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .filter-select {
+    flex: 1;
+  }
+
+  .btn-reset-filters {
+    width: 100%;
+    justify-content: center;
+    margin-left: 0;
+  }
+
+  .modal-dialog {
+    max-height: 95vh;
+  }
+
+  .modal-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal-attachment-card {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-download-attachment {
+    justify-content: center;
+  }
+
+  .modal-footer {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .modal-footer-left {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-footer-link,
+  .btn-footer-secondary,
+  .btn-footer-primary {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* Small Mobile (< 540px) */
+@media (max-width: 540px) {
+  .surat-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .surat-cards-grid {
+    grid-template-columns: 1fr;
   }
 }
 

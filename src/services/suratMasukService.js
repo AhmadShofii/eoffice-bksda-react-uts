@@ -33,6 +33,9 @@ export async function getAllSuratMasuk(params = {}) {
     if (params.sifat && params.sifat !== 'all') {
       list = list.filter(item => item.sifat === params.sifat);
     }
+    if (params.kategori && params.kategori !== 'all') {
+      list = list.filter(item => item.kategori === params.kategori);
+    }
   }
 
   return list;

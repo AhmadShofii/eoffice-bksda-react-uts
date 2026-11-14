@@ -29,6 +29,12 @@ export async function getAllSuratKeluar(params = {}) {
     if (params.status && params.status !== 'all') {
       list = list.filter(item => item.status === params.status);
     }
+    if (params.sifat && params.sifat !== 'all') {
+      list = list.filter(item => item.sifat === params.sifat);
+    }
+    if (params.kategori && params.kategori !== 'all') {
+      list = list.filter(item => item.kategori === params.kategori);
+    }
   }
 
   return list;
